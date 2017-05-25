@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.mapper.BirthDAO">
+	
+	<resultMap type="com.ssm.bean.Birth" id="BaseResultMap">
+				<id column="id" property="id" />
+				<result column="name" property="name"/>
+				<result column="birthday" property="birthday"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id,name,birthday
+	</sql>
+	
+	<sql id="Where_Column_List">
+		<if test="name!=null and name!=''">
+			AND name = #{name}
+		</if>
+		<if test="birthday!=null and birthday!=''">
+			AND birthday = #{birthday}
+		</if>
+  	</sql>
+	
+	<insert id="insert" parameterType="com.ssm.bean.Birth" useGeneratedKeys = "true" keyProperty = "id">
+		INSERT INTO tb_birth (name,birthday)
+		VALUES (#{name},#{birthday})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.ssm.bean.Birth" useGeneratedKeys = "true" keyProperty = "id">
+		INSERT INTO tb_birth 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+					<if test="name != null" >
+		        		name,
+		      		</if>
+					<if test="birthday != null" >
+		        		birthday,
+		      		</if>
+	    </trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides="," >
+                	<if test="name != null">
+					#{name},
+					</if>
+                	<if test="birthday != null">
+					#{birthday},
+					</if>
+		</trim>
+	</insert>
+	
+	<update id="updateById" parameterType="com.ssm.bean.Birth">
+		UPDATE tb_birth
+ 		SET name=#{name},birthday=#{birthday}
+		WHERE id=#{id}
+	</update>
+	
+	<update id="updateIdKeySelective" parameterType="com.ssm.bean.Birth">
+		UPDATE tb_birth
+ 		<set>
+ 			<if test="name != null" >
+ 				name=#{name},
+ 			</if>
+ 			<if test="birthday != null" >
+ 				birthday=#{birthday},
+ 			</if>
+ 		</set>
+		WHERE id=#{id}
+	</update>
+
+	<delete id="deleteById" parameterType="java.lang.Long">
+		DELETE FROM tb_birth WHERE id=#{value}
+	</delete>
+
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		SELECT <include refid="Base_Column_List"/> FROM tb_birth WHERE id=#{value} LIMIT 0,1
+	</select>
+	
+	
+</mapper>
