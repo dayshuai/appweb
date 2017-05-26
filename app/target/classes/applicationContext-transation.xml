@@ -38,7 +38,8 @@
 	 <!-- aop -->
 	 <aop:config>
 	 	<aop:advisor advice-ref="txAdvice"
-	 				 pointcut="execution(* cn.itcast.ssm.service.impl.*.*(..))"/>
+	 				 pointcut="execution(* cn.itcast.ssm.service.impl.*.*(..))
+	 				 or execution(*com.ssm.app.*.*(..)"/>
 	 </aop:config>
 	
 </beans>

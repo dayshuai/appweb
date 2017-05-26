@@ -27,6 +27,16 @@
 	<bean
 		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
 	</bean>
+	
+	<!--拦截器 -->
+	<mvc:interceptors>
+		<!--多个拦截器,顺序执行 -->
+		<mvc:interceptor>
+			<!-- /**可以拦截路径不管多少层 -->
+			<mvc:mapping path="/**" />
+			<bean class="com.ssm.controller.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 
 	<!-- 注解适配器 -->
@@ -43,6 +53,36 @@
 		</property>
 
 	</bean>
+	
+	<!-- 自定义webBinder -->
+	<bean id="customBinder"
+		class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+		<!-- 使用converter进行参数转 -->
+		<property name="conversionService" ref="conversionService" />
+	</bean>
+	
+	<!-- 转换器 -->
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="com.ssm.controller.converter.CustomDateConverter" />
+				<bean class="com.ssm.controller.converter.StringTrimConverter" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设置上传文件的最大尺寸为5MB -->
+		<property name="maxUploadSize">
+			<value>5242880</value>
+		</property>
+	</bean>
+	
+	<!-- 定义统一异常处理器 -->
+	<bean class="com.ssm.exception.CustomExceptionResolver"></bean>
 
 	<!-- 配置视图解析器 要求将jstl的包加到classpath -->
 	<!-- ViewResolver -->

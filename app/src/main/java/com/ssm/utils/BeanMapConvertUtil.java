@@ -44,7 +44,7 @@ public class BeanMapConvertUtil {
     public static <T> T mapToBean(Map<String, Object> map, T bean){  
         try {  
             BeanUtils.populate(bean, map);  
-        } catch (IllegalAccessException | InvocationTargetException e) {  
+        } catch (Exception e) {  
             logger.error(e, e.fillInStackTrace());  
         }  
         return bean;          
