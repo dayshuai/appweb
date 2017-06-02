@@ -10,8 +10,8 @@ public class ArrayZH {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Integer[] amountArr = { 873, 547, 668, 223 };
-		Integer[] countArr = { 6, 2, 3, 3 };
+		Integer[] amountArr = { 873, 547, 668};
+		Integer[] countArr = { 6, 2, 3};
 		int allMoney = 0;
 		for (int i = 0; i < amountArr.length; i++) {
 			allMoney += amountArr[i] * countArr[i];

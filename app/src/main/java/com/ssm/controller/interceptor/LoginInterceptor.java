@@ -50,10 +50,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 			return true;
 		}
 		// 执行到这里拦截，跳转到登陆页面，用户进行身份认证
-		request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+		//request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 
 		// 如果返回false表示拦截不继续执行handler，如果返回true表示放行
-		return false;
+		return true;
 	}
 
 	// 在执行handler返回modelAndView之前来执行
